@@ -13,6 +13,8 @@ void display(struct Array* arr)
     printf("\nElements are:\n");
     for(int i = 0; i < arr->length; i++)
         printf("%d ", arr->A[i]);
+
+    printf("\n");
 }
 
 void add(struct Array* arr, int value)
@@ -35,6 +37,49 @@ void insert(struct Array* arr, int index, int value)
     arr->length++;
 }
 
+void remove(struct Array* arr, int index)
+{
+    if(index >= arr->length || index < 0) return;
+
+    for(int i = index; i < arr->length - 1; i++)
+    {
+        arr->A[i] = arr->A[i+1];
+    }
+    arr->length--;
+}
+
+void swap(int* x, int* y)
+{
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int linear_seach(struct Array* arr, int key)
+{
+    for(int i = 0; i < arr->length; i ++)
+    {
+        if(arr->A[i] == key)
+        {
+            // Optimizations
+
+            // 1. Transposition
+            // swap(&arr->A[i], &arr->A[i-1]);
+            // return i-1;
+
+            // 2. Move to Front/Head
+            // if(i > 0)
+            // { 
+            //     swap(&arr->A[i], &arr->A[0]);
+            //     return 0;
+            // }
+
+            return i;
+        }
+    }
+    return -1;
+}
+
 int main()
 {
     struct Array arr;
@@ -43,6 +88,12 @@ int main()
     scanf("%d", &arr.size);
 
     arr.A = (int*)malloc(arr.size*sizeof(int));
+    if(arr.A == NULL) 
+    {
+        printf("Memory allocation failed\n");
+        return -1;
+    }
+
     arr.length = 0;
 
     int n = 0;
@@ -55,13 +106,16 @@ int main()
 
     arr.length = n;
     
-    
     printf("Enter all elements: ");
     for(int i = 0; i < arr.length; i++)
         scanf("%d", &arr.A[i]);
 
     display(&arr);
 
+    linear_seach(&arr, 5);
+    display(&arr);
+
     free(arr.A);
+    arr.A = NULL;
     return 0;
 }

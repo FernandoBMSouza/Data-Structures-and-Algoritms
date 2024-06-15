@@ -115,6 +115,64 @@ int recursive_binary_search(struct Array* arr, int low, int high, int key)
     return -1;
 }
 
+int get(struct Array* arr, int index)
+{
+    if(index < 0 || index >= arr->length) return -1;
+    return arr->A[index];
+}
+
+void set(struct Array* arr, int index, int value)
+{
+    if(index >= 0 && index < arr->length)
+        arr->A[index] = value;
+}
+
+int maximum(struct Array* arr)
+{
+    int max = arr->A[0];
+    for(int i = 1; i < arr->length; i++)
+    {
+        if(arr->A[i] > max)
+            max = arr->A[i];
+    }
+    return max;
+}
+
+int minimum(struct Array* arr)
+{
+    int min = arr->A[0];
+    for(int i = 1; i < arr->length; i++)
+    {
+        if(arr->A[i] < min)
+            min = arr->A[i];
+    }
+    return min;
+}
+
+int sum(struct Array* arr)
+{
+    int total = 0;
+    for(int i = 0; i < arr->length; i++)
+    {
+        total += arr->A[i];
+    }
+    return total;
+}
+
+int recursive_sum(struct Array* arr, int n)
+{
+    if (n <= 0)
+        return 0;
+    return arr->A[n-1] + recursive_sum(arr, n-1);
+}
+
+float avg(struct Array* arr)
+{
+    //if(arr->length != 0)
+    return (float)sum(arr) / arr->length;
+}
+
+
 int main()
 {
     struct Array arr;
@@ -146,6 +204,8 @@ int main()
         scanf("%d", &arr.A[i]);
 
     display(&arr);
+
+    printf("hello world!\n");
 
     free(arr.A);
     arr.A = NULL;

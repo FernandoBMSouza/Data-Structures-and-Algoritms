@@ -10,7 +10,7 @@ struct Array
 
 void display(struct Array* arr)
 {
-    printf("\nElements are:\n");
+    printf("Elements are:\n");
     for(int i = 0; i < arr->length; i++)
         printf("%d ", arr->A[i]);
 
@@ -37,7 +37,7 @@ void insert(struct Array* arr, int index, int value)
     arr->length++;
 }
 
-void remove(struct Array* arr, int index)
+void delete(struct Array* arr, int index)
 {
     if(index >= arr->length || index < 0) return;
 
@@ -172,6 +172,66 @@ float avg(struct Array* arr)
     return (float)sum(arr) / arr->length;
 }
 
+void reverse_aux(struct Array* arr)
+{
+    // Using auxiliar array
+    int *aux = (int*)malloc(arr->length*sizeof(int));
+    for(int i = 0, j = arr->length - 1; j >= 0;i++, j--)
+        aux[i] = arr->A[j];
+    for(int i = 0; i < arr->length; i++)
+        arr->A[i] = aux[i];
+
+    free(aux);
+    aux = NULL;
+}
+
+void reverse(struct Array* arr)
+{
+    for(int i = 0, j = arr->length - 1; i < j; i++, j--)
+        swap(&arr->A[i], &arr->A[j]);
+}
+
+void shift_left(struct Array* arr)
+{
+    if(arr->length <= 1) return;
+
+    for(int i = 0; i < arr->length; i++)
+        arr->A[i] = arr->A[i+1];
+
+    arr->A[arr->length-1] = 0;
+}
+
+void shift_right(struct Array* arr)
+{
+    if(arr->length <= 1) return;
+
+    for(int i = arr->length - 1; i > 0; i--)
+        arr->A[i] = arr->A[i-1]; 
+        
+    arr->A[0] = 0;
+}
+
+void rotate_left(struct Array* arr)
+{
+    if(arr->length <= 1) return;
+
+    int temp = arr->A[0];
+    for(int i = 0; i < arr->length; i++)
+        arr->A[i] = arr->A[i+1];
+
+    arr->A[arr->length-1] = temp;
+}
+
+void rotate_right(struct Array* arr)
+{
+    if(arr->length <= 1) return;
+
+    int temp = arr->A[arr->length-1];
+    for(int i = arr->length - 1; i > 0; i--)
+        arr->A[i] = arr->A[i-1]; 
+        
+    arr->A[0] = temp;
+}
 
 int main()
 {
@@ -204,8 +264,6 @@ int main()
         scanf("%d", &arr.A[i]);
 
     display(&arr);
-
-    printf("hello world!\n");
 
     free(arr.A);
     arr.A = NULL;

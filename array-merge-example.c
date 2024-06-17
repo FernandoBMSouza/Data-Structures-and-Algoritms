@@ -310,19 +310,19 @@ struct Array* merge(struct Array* arr1, struct Array* arr2)
 
 int main()
 {
-    struct Array arr;
+    struct Array arr1;
 
     printf("Enter array size: ");
-    scanf("%d", &arr.size);
+    scanf("%d", &arr1.size);
 
-    arr.A = (int*)malloc(arr.size*sizeof(int));
-    if(arr.A == NULL) 
+    arr1.A = (int*)malloc(arr1.size*sizeof(int));
+    if(arr1.A == NULL) 
     {
         printf("Memory allocation failed\n");
         return -1;
     }
 
-    arr.length = 0;
+    arr1.length = 0;
 
     int n = 0;
 
@@ -330,18 +330,45 @@ int main()
     {
         printf("Enter array length: ");
         scanf("%d", &n);
-    } while (n > arr.size || n < 0);
+    } while (n > arr1.size || n < 0);
 
-    arr.length = n;
+    arr1.length = n;
     
     printf("Enter all elements: ");
-    for(int i = 0; i < arr.length; i++)
-        scanf("%d", &arr.A[i]);
+    for(int i = 0; i < arr1.length; i++)
+        scanf("%d", &arr1.A[i]);
 
-    display(&arr);
+    struct Array arr2;
+    arr2.size = 20;
+    arr2.length = 10;
+    arr2.A = (int*)malloc(arr2.length * sizeof(int));
+    if(arr2.A == NULL) 
+    {
+        printf("Memory allocation failed\n");
+        return -1;
+    }
+
+    for(int i = 0; i < arr2.length; i++)
+        arr2.A[i] = i*2;
+
+    display(&arr1);
+    display(&arr2);
     
-    free(arr.A);
-    arr.A = NULL;
+    struct Array* arr3 = merge(&arr1, &arr2);
+    if(arr3 != NULL)
+    {
+        display(arr3);
+        free(arr3->A);
+        arr3->A = NULL;
+        free(arr3);
+        arr3 = NULL;
+    }
+    
+    free(arr1.A);
+    arr1.A = NULL;
+
+    free(arr2.A);
+    arr2.A = NULL;
 
     return 0;
 }

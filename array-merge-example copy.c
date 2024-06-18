@@ -37,7 +37,7 @@ void insert(struct Array* arr, int index, int value)
     arr->length++;
 }
 
-void delete(struct Array* arr, int index)
+void my_delete(struct Array* arr, int index)
 {
     if(index >= arr->length || index < 0) return;
 

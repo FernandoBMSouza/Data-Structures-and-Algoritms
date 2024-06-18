@@ -454,38 +454,87 @@ struct Array* difference(struct Array* arr1, struct Array* arr2)
 
 int main()
 {
-    struct Array arr;
+    // struct Array arr1;
 
-    printf("Enter array size: ");
-    scanf("%d", &arr.size);
+    // printf("Enter array size: ");
+    // scanf("%d", &arr1.size);
 
-    arr.A = (int*)malloc(arr.size*sizeof(int));
-    if(arr.A == NULL) 
+    // arr1.A = (int*)malloc(arr1.size*sizeof(int));
+    // if(arr1.A == NULL) 
+    // {
+    //     printf("Memory allocation failed\n");
+    //     return -1;
+    // }
+
+    // arr1.length = 0;
+
+    // int n = 0;
+
+    // do
+    // {
+    //     printf("Enter array length: ");
+    //     scanf("%d", &n);
+    // } while (n > arr1.size || n < 0);
+
+    // arr1.length = n;
+    
+    // printf("Enter all elements: ");
+    // for(int i = 0; i < arr1.length; i++)
+    //     scanf("%d", &arr1.A[i]);
+
+    struct Array arr1;
+    arr1.size = 10;
+    arr1.length = 5;
+    arr1.A = (int*)malloc(arr1.size * sizeof(int));
+    if(arr1.A == NULL) 
     {
         printf("Memory allocation failed\n");
         return -1;
     }
 
-    arr.length = 0;
+    arr1.A[0] = 2;
+    arr1.A[1] = 6;
+    arr1.A[2] = 10;
+    arr1.A[3] = 15;
+    arr1.A[4] = 25;
 
-    int n = 0;
-
-    do
+    struct Array arr2;
+    arr2.size = 10;
+    arr2.length = 5;
+    arr2.A = (int*)malloc(arr2.size * sizeof(int));
+    if(arr2.A == NULL) 
     {
-        printf("Enter array length: ");
-        scanf("%d", &n);
-    } while (n > arr.size || n < 0);
+        printf("Memory allocation failed\n");
+        return -1;
+    }
 
-    arr.length = n;
-    
-    printf("Enter all elements: ");
-    for(int i = 0; i < arr.length; i++)
-        scanf("%d", &arr.A[i]);
+    // for(int i = 0; i < arr2.length; i++)
+    //     arr2.A[i] = i*2;
 
-    display(&arr);
+    arr2.A[0] = 3;
+    arr2.A[1] = 6;
+    arr2.A[2] = 7;
+    arr2.A[3] = 15;
+    arr2.A[4] = 20;
+
+    display(&arr1);
+    display(&arr2);
     
-    free(arr.A);
-    arr.A = NULL;
+    struct Array* arr3 = difference(&arr1, &arr2);
+    if(arr3 != NULL)
+    {
+        display(arr3);
+        free(arr3->A);
+        arr3->A = NULL;
+        free(arr3);
+        arr3 = NULL;
+    }
+    
+    free(arr1.A);
+    arr1.A = NULL;
+
+    free(arr2.A);
+    arr2.A = NULL;
 
     return 0;
 }

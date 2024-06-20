@@ -19,7 +19,7 @@ void display(struct Array* arr)
 
 void add(struct Array* arr, int value)
 {
-    if(arr->length >= arr-> size) return;
+    if(arr->length >= arr->size) return;
     arr->A[arr->length++] = value;
 }
 
@@ -55,6 +55,16 @@ void swap(int* x, int* y)
     *y = temp;
 }
 
+int is_sorted(struct Array* arr)
+{
+    for(int i = 0; i < arr->length-1; i++)
+    {
+        if(arr->A[i] > arr->A[i+1])
+            return 0;
+    }
+    return 1;   
+}
+
 int linear_seach(struct Array* arr, int key)
 {
     for(int i = 0; i < arr->length; i ++)
@@ -82,6 +92,8 @@ int linear_seach(struct Array* arr, int key)
 
 int binary_search(struct Array* arr, int key)
 {
+    if(!is_sorted(arr)) return -1;
+
     int low = 0;
     int high = arr->length-1;
 
@@ -233,16 +245,6 @@ void rotate_right(struct Array* arr)
     arr->A[0] = temp;
 }
 
-int is_sorted(struct Array* arr)
-{
-    for(int i = 0; i < arr->length-1; i++)
-    {
-        if(arr->A[i] > arr->A[i+1])
-            return 0;
-    }
-    return 1;   
-}
-
 void insert_sorted(struct Array* arr, int value)
 {
     if(arr->length == arr->size || !is_sorted(arr)) return;
@@ -308,53 +310,217 @@ struct Array* merge(struct Array* arr1, struct Array* arr2)
     return arr3;
 }
 
+struct Array* my_union(struct Array* arr1, struct Array* arr2)
+{
+    struct Array* arr3 = (struct Array*)malloc(sizeof(struct Array));
+    if(arr3 == NULL) return NULL;
+
+    arr3->size = arr1->size + arr2->size;
+
+    arr3->A = (int*)malloc((arr3->size) * sizeof(int));
+    if(arr3->A == NULL) 
+    {
+        free(arr3);
+        return NULL;
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    
+    if(is_sorted(arr1) && is_sorted(arr2))
+    {
+        while(i < arr1->length && j < arr2->length)
+        {
+            if(arr1->A[i] < arr2->A[j])
+                arr3->A[k++] = arr1->A[i++];
+            else if(arr1->A[i] > arr2->A[j])
+                arr3->A[k++] = arr2->A[j++];
+            else
+            {
+                arr3->A[k++] = arr1->A[i++];
+                j++;
+            }
+        }
+
+        for(; i < arr1->length; i++)
+            arr3->A[k++] = arr1->A[i];
+
+        for(; j < arr2->length; j++)
+            arr3->A[k++] = arr2->A[j];
+    }
+    else
+    {
+        for(int i = 0; i < arr1->length; i++)
+            arr3->A[k++] = arr1->A[i];
+        
+        for(int i = 0; i < arr2->length; i++)
+            if(linear_seach(arr1, arr2->A[i]) == -1)
+                arr3->A[k++] = arr2->A[i];
+    }
+
+    arr3->length = k;
+    return arr3;
+}
+
+struct Array* intersection(struct Array* arr1, struct Array* arr2)
+{
+    struct Array* arr3 = (struct Array*)malloc(sizeof(struct Array));
+    if(arr3 == NULL) return NULL;
+
+    arr3->size = arr1->size + arr2->size;
+
+    arr3->A = (int*)malloc((arr3->size) * sizeof(int));
+    if(arr3->A == NULL) 
+    {
+        free(arr3);
+        return NULL;
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    
+    if(is_sorted(arr1) && is_sorted(arr2))
+    {
+        while(i < arr1->length && j < arr2->length)
+        {
+            if(arr1->A[i] < arr2->A[j]) i++;
+            else if(arr1->A[i] > arr2->A[j]) j++;
+            else
+            {
+                arr3->A[k++] = arr1->A[i++];
+                j++;
+            }
+        }
+    }
+    else
+    {
+        for(int i = 0; i < arr1->length; i++)
+            if(linear_seach(arr2, arr1->A[i]) != -1)
+                arr3->A[k++] = arr1->A[i];
+    }
+
+    arr3->length = k;
+    return arr3;
+}
+
+struct Array* difference(struct Array* arr1, struct Array* arr2)
+{
+    struct Array* arr3 = (struct Array*)malloc(sizeof(struct Array));
+    if(arr3 == NULL) return NULL;
+
+    arr3->size = arr1->size + arr2->size;
+
+    arr3->A = (int*)malloc((arr3->size) * sizeof(int));
+    if(arr3->A == NULL) 
+    {
+        free(arr3);
+        return NULL;
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    
+    if(is_sorted(arr1) && is_sorted(arr2))
+    {
+        while(i < arr1->length && j < arr2->length)
+        {
+            if(arr1->A[i] < arr2->A[j])
+                arr3->A[k++] = arr1->A[i++];
+            else if(arr1->A[i] > arr2->A[j])
+                j++;
+            else
+            {
+                i++;
+                j++;
+            }
+        }
+
+        for(; i < arr1->length; i++)
+            arr3->A[k++] = arr1->A[i];
+    }
+    else
+    {
+        for(int i = 0; i < arr1->length; i++)
+            if(linear_seach(arr2, arr1->A[i]) == -1)
+                arr3->A[k++] = arr1->A[i];
+    }
+
+    arr3->length = k;
+    return arr3;
+}
+
 int main()
 {
+    // struct Array arr1;
+
+    // printf("Enter array size: ");
+    // scanf("%d", &arr1.size);
+
+    // arr1.A = (int*)malloc(arr1.size*sizeof(int));
+    // if(arr1.A == NULL) 
+    // {
+    //     printf("Memory allocation failed\n");
+    //     return -1;
+    // }
+
+    // arr1.length = 0;
+
+    // int n = 0;
+
+    // do
+    // {
+    //     printf("Enter array length: ");
+    //     scanf("%d", &n);
+    // } while (n > arr1.size || n < 0);
+
+    // arr1.length = n;
+    
+    // printf("Enter all elements: ");
+    // for(int i = 0; i < arr1.length; i++)
+    //     scanf("%d", &arr1.A[i]);
+
     struct Array arr1;
-
-    printf("Enter array size: ");
-    scanf("%d", &arr1.size);
-
-    arr1.A = (int*)malloc(arr1.size*sizeof(int));
+    arr1.size = 10;
+    arr1.length = 5;
+    arr1.A = (int*)malloc(arr1.size * sizeof(int));
     if(arr1.A == NULL) 
     {
         printf("Memory allocation failed\n");
         return -1;
     }
 
-    arr1.length = 0;
-
-    int n = 0;
-
-    do
-    {
-        printf("Enter array length: ");
-        scanf("%d", &n);
-    } while (n > arr1.size || n < 0);
-
-    arr1.length = n;
-    
-    printf("Enter all elements: ");
-    for(int i = 0; i < arr1.length; i++)
-        scanf("%d", &arr1.A[i]);
+    arr1.A[0] = 2;
+    arr1.A[1] = 6;
+    arr1.A[2] = 10;
+    arr1.A[3] = 15;
+    arr1.A[4] = 25;
 
     struct Array arr2;
-    arr2.size = 20;
-    arr2.length = 10;
-    arr2.A = (int*)malloc(arr2.length * sizeof(int));
+    arr2.size = 10;
+    arr2.length = 5;
+    arr2.A = (int*)malloc(arr2.size * sizeof(int));
     if(arr2.A == NULL) 
     {
         printf("Memory allocation failed\n");
         return -1;
     }
 
-    for(int i = 0; i < arr2.length; i++)
-        arr2.A[i] = i*2;
+    // for(int i = 0; i < arr2.length; i++)
+    //     arr2.A[i] = i*2;
+
+    arr2.A[0] = 3;
+    arr2.A[1] = 6;
+    arr2.A[2] = 7;
+    arr2.A[3] = 15;
+    arr2.A[4] = 20;
 
     display(&arr1);
     display(&arr2);
     
-    struct Array* arr3 = merge(&arr1, &arr2);
+    struct Array* arr3 = difference(&arr1, &arr2);
     if(arr3 != NULL)
     {
         display(arr3);

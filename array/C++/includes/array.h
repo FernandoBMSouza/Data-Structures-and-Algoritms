@@ -14,7 +14,8 @@ private:
 public:
     Array(int size);
     ~Array();
-    void display() const;
+    int getLength() { return m_length; }
+    void display();
     void append(T value);
     void insert(int index, T value);
     void myDelete(int index);
@@ -57,7 +58,7 @@ Array<T>::~Array()
 }
 
 template<typename T>
-void Array<T>::display() const
+void Array<T>::display()
 {
     std::cout << "Elements: ";
     for(int i = 0; i < m_length; i++)

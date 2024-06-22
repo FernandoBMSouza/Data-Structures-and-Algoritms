@@ -5,19 +5,19 @@
 int main()
 {
     Array<int> arr(10);
-    arr.append(6);
-    arr.append(3);
-    arr.append(8);
-    arr.append(10);
-    arr.append(16);
-    arr.append(7);
     arr.append(5);
-    arr.append(2);
+    arr.append(8);
+    arr.append(3);
     arr.append(9);
-    arr.append(14);
+    arr.append(6);
+    arr.append(2);
+    arr.append(10);
+    arr.append(7);
+    arr.append(-1);
+    arr.append(4);
 
     arr.display();
-    findPairWithSumKHashing(&arr, 10);
+    findMaxAndMin(&arr);
 
     // int option = 0;
     // int x = 0;

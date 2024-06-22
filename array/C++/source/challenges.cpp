@@ -150,3 +150,34 @@ void findPairWithSumKHashing(Array<int>* arr, int k)
     }
 }
 
+void findPairWithSumKInSortedArray(Array<int>* arr, int k)
+{
+    if(!arr->isSorted()) return;
+
+    for(int i = 0, j = arr->getLength() - 1; i < j; )
+    {
+        if(arr->get(i) + arr->get(j) > k) j--;
+        else if(arr->get(i) + arr->get(j) < k) i++;
+        else 
+        {
+            std::cout << arr->get(i) << " + " << arr->get(j) << " = " << k << '\n';
+            i++;
+            j--;
+        }
+    }
+}
+
+void findMaxAndMin(Array<int>* arr)
+{
+    int max = arr->get(0);
+    int min = arr->get(0);
+
+    for(int i = 1; i < arr->getLength(); i++)
+    {
+        if(arr->get(i) < min) min = arr->get(i);
+        else if(arr->get(i) > max) max = arr->get(i);
+    }
+
+    std::cout << "Max = " << max << '\n';
+    std::cout << "Min = " << min << '\n';
+}

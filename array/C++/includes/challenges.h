@@ -12,5 +12,7 @@ void findDuplicates(Array<int>* arr);
 void findDuplicatesHashing(Array<int>* arr);
 void findPairWithSumK(Array<int>* arr, int k);
 void findPairWithSumKHashing(Array<int>* arr, int k);
+void findPairWithSumKInSortedArray(Array<int>* arr, int k);
+void findMaxAndMin(Array<int>* arr);
 
 #endif

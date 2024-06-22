@@ -85,6 +85,68 @@ void findDuplicatesInSortedArrayHashing(Array<int>* arr)
     std::cout << "Duplicated Elements: ";
     for(int i = arr->minimum(); i < hash.getLength(); i++)
         if(hash.get(i) > 1)
-            std::cout << i << " (" << hash.get(i) << ") ";
+            std::cout << i << '(' << hash.get(i) << ") ";
+}
+
+void findDuplicates(Array<int>* arr)
+{
+    std::cout<<"Duplicates: ";
+    for(int i = 0; i < arr->getLength()-1; i++)
+    {
+        int count = 1;
+        if(arr->get(i) != -1)
+        {
+            for(int j = i+1; j < arr->getLength(); j++)
+            {
+                if(arr->get(i) == arr->get(j))
+                {
+                    count++;
+                    arr->set(j, -1);
+                }
+            }
+            if(count > 1) std::cout << arr->get(i) << "(" << count << ") ";
+        }
+    }
+}
+
+void findDuplicatesHashing(Array<int>* arr)
+{
+    Array<int> hash(arr->maximum()+1);
+
+    for(int i = 0; i < arr->maximum()+1; i++)
+        hash.insert(i, 0);
+    
+    for(int i = 0; i < arr->getLength(); i++)
+        hash.set(arr->get(i), hash.get(arr->get(i)) + 1);
+
+    std::cout << "Duplicated Elements: ";
+    for(int i = arr->minimum(); i < hash.getLength(); i++)
+        if(hash.get(i) > 1)
+            std::cout << i << '(' << hash.get(i) << ") ";
+}
+
+void findPairWithSumK(Array<int>* arr, int k)
+{
+    for(int i = 0; i < arr->getLength()-1; i++)
+        for(int j = i+1; j < arr->getLength(); j++)
+            if(arr->get(i) + arr->get(j) == k)
+                std::cout<<arr->get(i)<<" + "<<arr->get(j)<<" = "<<k<<'\n';
+}
+
+void findPairWithSumKHashing(Array<int>* arr, int k)
+{
+    Array<int> hash(arr->maximum()+1);
+
+    for(int i = 0; i < arr->maximum()+1; i++)
+        hash.insert(i, 0);
+
+    std::cout << "Pairs:\n";
+    for(int i = 0; i < arr->getLength(); i++)
+    {
+        if(hash.get(k - arr->get(i)) > 0)
+            std::cout<<arr->get(i)<<" + "<<k - arr->get(i)<<" = "<<k<<'\n';
+
+        hash.set(arr->get(i), hash.get(arr->get(i)) + 1);
+    }
 }
 

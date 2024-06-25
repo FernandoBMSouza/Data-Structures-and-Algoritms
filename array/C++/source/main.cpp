@@ -17,7 +17,8 @@ int main()
     arr.append(4);
 
     arr.display();
-    findMaxAndMin(&arr);
+    arr.reverse();
+    arr.display();
 
     // int option = 0;
     // int x = 0;

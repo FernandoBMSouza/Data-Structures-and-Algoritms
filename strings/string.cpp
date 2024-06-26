@@ -145,10 +145,79 @@ bool isPalindrome(char* str)
     return true;
 }
 
+void findDuplicates(char* str)
+{
+    for(int i = 0; str[i] != '\0'; i++)
+    {
+        if(str[i] != -1)
+        {
+            int count = 1;
+            for(int j = i+1; str[j] != '\0'; j++)
+            {
+                if(str[i] == str[j])
+                {
+                    count++;
+                    str[j] = -1;
+                }
+            }
+            std::cout << str[i] << '(' << count << ") ";
+        }
+    }
+    std::cout << '\n';
+}
+
+void findDuplicatesHash(const char* str)
+{
+    // 52 são todas as letras maiúsculas e minúsculas, esse () já inicializa tudo com zeros
+    int* hash = new int[52]();
+
+    //Contabilizar a frequência dos caracteres
+    for(int i = 0; str[i] != '\0'; i++)
+    {
+        if (std::islower(str[i]))
+            hash[str[i] - 'a']++;
+        else if (std::isupper(str[i]))
+            hash[str[i] - 'A' + 26]++;
+    }
+
+    // Imprimir os caracteres duplicados
+    for(int i = 0; i < 26; i++)
+    {
+        if(hash[i] > 1)
+        {
+            std::cout << char(i + 'a') << '(' << hash[i] << ") ";
+        }
+    }
+    for(int i = 26; i < 52; i++)
+    {
+        if(hash[i] > 1)
+        {
+            std::cout << char(i - 26 + 'A') << '(' << hash[i] << ") ";
+        }
+    }
+
+    delete[] hash;
+    std::cout << '\n';
+}
+
+void findDuplicatesBit(const char* str)
+{
+    // Using this method it is not possible to know how many times the char is repeated,
+    // but it is possible to know if it is duplicated at least one time
+    int h = 0, x = 0;
+    for(int i = 0; str[i] != '\0'; i++)
+    {
+        x = 1;
+        x = x << (str[i] - 97);
+        if((x & h) > 0) std::cout << str[i] << " is duplicated.\n";
+        else h = x | h;
+    }
+}
+
 int main()
 {
-    char str[] = "madam";
-    std::cout << isPalindrome(str) << '\n';
+    char str[] = "finding";
+    findDuplicatesBit(str);
 
     return 0;
 }

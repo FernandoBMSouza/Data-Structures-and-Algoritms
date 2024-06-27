@@ -200,7 +200,7 @@ void findDuplicatesHash(const char* str)
     std::cout << '\n';
 }
 
-void findDuplicatesBit(const char* str)
+void findDuplicatesBitwise(const char* str)
 {
     // Using this method it is not possible to know how many times the char is repeated,
     // but it is possible to know if it is duplicated at least one time
@@ -214,10 +214,55 @@ void findDuplicatesBit(const char* str)
     }
 }
 
+bool isAnagram(char* str1, char* str2)
+{
+    int* hash = new int[26]();
+
+    for(int i = 0; str1[i] != '\0'; i++)
+        hash[str1[i] - 97]++;
+
+    for(int i = 0; str2[i] != '\0'; i++)
+    {
+        hash[str2[i] - 97]--;
+
+        if(hash[str2[i] - 97] < 0)
+            return false;
+    }
+    return true;
+
+    delete[] hash;
+}
+
+void permutation(char* str, int k)
+{
+    static int aux[10] = {0};
+    static char res[10];
+    
+    if(str[k] == '\0')
+    {
+        res[k] = '\0';
+        std::cout << res << '\n';
+    }
+    else
+    {
+        for(int i = 0; str[i]!='\0'; i++)
+        {
+            if(aux[i] == 0)
+            {
+                res[k] = str[i];
+                aux[i] = 1;
+                permutation(str, k+1);
+                aux[i] = 0;
+            }
+        }
+    }
+}
+
 int main()
 {
-    char str[] = "finding";
-    findDuplicatesBit(str);
+    char str[] = "ABC";
+    permutation(str, 0);
+    std::cout << '\n';
 
     return 0;
 }

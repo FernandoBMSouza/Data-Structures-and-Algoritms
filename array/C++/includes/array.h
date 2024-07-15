@@ -11,6 +11,7 @@ private:
     int m_size = 0;
     int m_length = 0;
     void swap(T* x, T* y);
+    void swapMove(T& a, T& b);
 public:
     Array(int size);
     ~Array();
@@ -28,6 +29,7 @@ public:
     void rotateRight();
     void insertSorted(T value);
     void rearrange();
+    void bubbleSort();
     bool isSorted();
     int linearSearch(T key);
     int binarySearch(T key);
@@ -110,6 +112,14 @@ void Array<T>::swap(T* x, T* y)
     T temp = *x;
     *x = *y;
     *y = temp;
+}
+
+template<typename T>
+void Array<T>::swapMove(T& a, T& b)
+{
+    T tmp { std::move(a) };
+    a = std::move(b);
+    b = std::move(tmp);
 }
 
 template<typename T>
@@ -474,6 +484,24 @@ Array<T>* Array<T>::difference(Array<T>* other)
 
     out->m_length = k;
     return out;
+}
+
+template <typename T>
+void Array<T>::bubbleSort()
+{
+    for(int i = 0; i < m_length - 1; i++)
+    {
+        bool swapped = false;
+        for(int j = 0; j < m_length-i-1; j++)
+        {
+            if(m_elements[j] > m_elements[j+1])
+            {
+                swapMove(m_elements[j], m_elements[j+1]);
+                swapped = true;
+            }
+        }
+        if(!swapped) break;
+    }
 }
 
 #endif

@@ -17,9 +17,10 @@ int main()
     arr.append(4);
 
     arr.display();
-    arr.reverse();
+    arr.bubbleSort();
     arr.display();
 
+    // ARRAY MENU
     // int option = 0;
     // int x = 0;
     // int index = 0;

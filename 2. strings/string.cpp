@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 
 int getLength(const char* str)
 {
@@ -258,10 +259,37 @@ void permutation(char* str, int k)
     }
 }
 
+template <typename T>
+void swap(T& x, T& y)
+{
+    T temp { std::move(x) };
+    x = std::move(y);
+    y = std::move(temp);
+}
+
+void permutationSwap(char* str, int low, int high)
+{
+    if(low == high)
+    {
+        std::cout << str << '\n';
+    }
+    else
+    {
+        for(int i = low; i <= high; i++)
+        {
+            swap(str[low], str[i]);
+            permutationSwap(str, low + 1, high);
+            swap(str[low], str[i]);
+        }
+    }
+}
+
 int main()
 {
     char str[] = "ABC";
-    permutation(str, 0);
+    // permutation(str, 0);
+    permutationSwap(str, 0, getLength(str)-1);
+    
     std::cout << '\n';
 
     return 0;

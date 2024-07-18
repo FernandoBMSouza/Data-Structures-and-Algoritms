@@ -15,6 +15,7 @@ public:
     int get(int row, int column);
     void set(int row, int column, int value);
     void display();
+    int getDimension();
 };
 
 DiagonalMatrix::DiagonalMatrix(int dimension)
@@ -26,6 +27,11 @@ DiagonalMatrix::DiagonalMatrix(int dimension)
 DiagonalMatrix::~DiagonalMatrix()
 {
     delete[] m_diagonal;
+}
+
+int DiagonalMatrix::getDimension()
+{
+    return m_dimension;
 }
 
 int DiagonalMatrix::get(int row, int column)
@@ -42,9 +48,9 @@ void DiagonalMatrix::set(int row, int column, int value)
 
 void DiagonalMatrix::display()
 {
-    for(int column = 0; column < m_dimension; column++)
+    for(int row = 0; row < m_dimension; row++)
     {
-        for(int row = 0; row < m_dimension; row++)
+        for(int column = 0; column < m_dimension; column++)
         {
             if(row == column) std::cout << m_diagonal[row] << ' ';
             else std::cout << 0 << ' ';

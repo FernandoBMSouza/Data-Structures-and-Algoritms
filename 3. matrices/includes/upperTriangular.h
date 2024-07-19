@@ -40,10 +40,10 @@ int UpperTriangularMatrix::get(int row, int column)
     if (row <= column)
     {
 #ifdef ROW_MAJOR 
-        return m_upperTriangle[((row-1) * m_dimension - ((row - 2) * (row-1)) / 2) + (column - 1)];
+        return m_upperTriangle[(row * m_dimension) - ((row * (row + 1)) / 2) + column - row];
 #endif
 #ifdef COLUMN_MAJOR 
-        return m_upperTriangle[(column*(column-1) / 2) + row - 1];
+        return m_upperTriangle[(column * (column - 1)) / 2 + row];
 #endif
     }
     else return 0;
@@ -54,30 +54,21 @@ void UpperTriangularMatrix::set(int row, int column, int value)
     if (row <= column)
     {
 #ifdef ROW_MAJOR 
-        m_upperTriangle[((row-1) * m_dimension - ((row - 2) * (row-1)) / 2) + (column - 1)] = value;
+        m_upperTriangle[(row * m_dimension) - ((row * (row + 1)) / 2) + column - row] = value;
 #endif
 #ifdef COLUMN_MAJOR 
-        m_upperTriangle[(column*(column-1) / 2) + row - 1] = value;
+        m_upperTriangle[(column * (column - 1)) / 2 + row] = value;
 #endif
     }
 }
 
 void UpperTriangularMatrix::display()
 {
-    for (int row = 1; row <= m_dimension; row++)
+    for (int row = 0; row < m_dimension; row++)
     {
-        for (int column = 1; column <= m_dimension; column++)
+        for (int column = 0; column < m_dimension; column++)
         {
-            if (row <= column)
-            {
-#ifdef ROW_MAJOR 
-                std::cout << m_upperTriangle[((row-1) * m_dimension - ((row - 2) * (row-1)) / 2) + (column - 1)] << ' ';
-#endif
-#ifdef COLUMN_MAJOR 
-                std::cout << m_upperTriangle[(column*(column-1) / 2) + row - 1] << ' ';
-#endif
-            }
-            else std::cout << 0 << ' ';
+            std::cout << get(row, column) << ' ';
         }
         std::cout << '\n';
     }

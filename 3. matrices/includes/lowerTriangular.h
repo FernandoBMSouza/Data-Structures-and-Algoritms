@@ -1,6 +1,6 @@
 #ifndef LOWER_TRIANGULAR_H
 #define LOWER_TRIANGULAR_H
-#define COLUMN_MAJOR
+#define ROW_MAJOR
 
 #include <iostream>
 
@@ -40,10 +40,10 @@ int LowerTriangularMatrix::get(int row, int column)
     if (row >= column)
     {
 #ifdef ROW_MAJOR 
-        return m_lowerTriangle[(row*(row-1) / 2) + column - 1];
+        return m_lowerTriangle[(row * (row + 1)) / 2 + column];
 #endif
 #ifdef COLUMN_MAJOR 
-        return m_lowerTriangle[((column-1) * m_dimension - ((column - 2) * (column-1)) / 2) + (row - 1)];
+        return m_lowerTriangle[(row * m_dimension) - (row * (row - 1)) / 2 + column];
 #endif
     }
     else return 0;
@@ -54,30 +54,21 @@ void LowerTriangularMatrix::set(int row, int column, int value)
     if (row >= column)
     {
 #ifdef ROW_MAJOR 
-        m_lowerTriangle[(row*(row-1) / 2) + column - 1] = value;
+        m_lowerTriangle[(row * (row + 1)) / 2 + column] = value;
 #endif
 #ifdef COLUMN_MAJOR 
-        m_lowerTriangle[((column-1) * m_dimension - ((column - 2) * (column-1)) / 2) + (row - 1)] = value;
+        m_lowerTriangle[(row * m_dimension) - (row * (row - 1)) / 2 + column] = value;
 #endif
     }
 }
 
 void LowerTriangularMatrix::display()
 {
-    for (int row = 1; row <= m_dimension; row++)
+    for (int row = 0; row < m_dimension; row++)
     {
-        for (int column = 1; column <= m_dimension; column++)
+        for (int column = 0; column < m_dimension; column++)
         {
-            if (row >= column)
-            {
-#ifdef ROW_MAJOR 
-                std::cout << m_lowerTriangle[(row*(row-1) / 2) + column - 1] << ' ';
-#endif
-#ifdef COLUMN_MAJOR 
-                std::cout << m_lowerTriangle[((column-1) * m_dimension - ((column - 2) * (column-1)) / 2) + (row - 1)] << ' ';
-#endif
-            }
-            else std::cout << 0 << ' ';
+            std::cout << get(row, column) << ' ';
         }
         std::cout << '\n';
     }

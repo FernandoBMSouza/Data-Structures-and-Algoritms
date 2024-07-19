@@ -1,4 +1,4 @@
-#include "lowerTriangular.h"
+#include "diagonal.h"
 #include <iostream>
 
 int main()
@@ -7,18 +7,19 @@ int main()
     std::cout << "Enter dimension: ";
     std::cin >> dimension;
 
-    LowerTriangularMatrix matrix(dimension);    
+    DiagonalMatrix matrix(dimension);    
 
     std::cout<<"Enter all elements:\n";
-    for(int i = 1; i <= matrix.getDimension(); i++)
+    for(int i = 0; i < matrix.getDimension(); i++)
     {
-        for (int j = 1; j <= matrix.getDimension(); j++)
+        for (int j = 0; j < matrix.getDimension(); j++)
         {
             int x;
             std::cin >> x;
             matrix.set(i,j,x);
         }
     }
+
     std::cout << '\n';
     matrix.display();
     

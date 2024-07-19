@@ -36,24 +36,23 @@ int DiagonalMatrix::getDimension()
 
 int DiagonalMatrix::get(int row, int column)
 {
-    if(row == column) return m_diagonal[row - 1];
+    if(row == column) return m_diagonal[row];
     else return 0;
 }
 
 void DiagonalMatrix::set(int row, int column, int value)
 {
     if(row == column)
-        m_diagonal[row - 1] = value;
+        m_diagonal[row] = value;
 }
 
 void DiagonalMatrix::display()
 {
-    for(int row = 0; row < m_dimension; row++)
+    for (int row = 0; row < m_dimension; row++)
     {
-        for(int column = 0; column < m_dimension; column++)
+        for (int column = 0; column < m_dimension; column++)
         {
-            if(row == column) std::cout << m_diagonal[row] << ' ';
-            else std::cout << 0 << ' ';
+            std::cout << get(row, column) << ' ';
         }
         std::cout << '\n';
     }

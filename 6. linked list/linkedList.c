@@ -209,16 +209,68 @@ void insert(struct Node** p, int index, int value)
     }
 }
 
+void insertLast(struct Node** p, int x)
+{
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* last = *p;
+    newNode->data = x;
+    newNode->next = NULL;
+
+    if (*p == NULL)
+    {
+        *p = last = newNode;
+    }
+    else
+    {
+        while (last->next != NULL)
+            last = last->next;
+
+        last->next = newNode;
+        last = newNode;
+    }
+}
+
+void insertSorted(struct Node** first, int x)
+{
+    struct Node* p = *first;
+    struct Node* q = NULL;
+
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = x;
+    newNode->next = NULL;
+
+    if (*first == NULL || (*first)->data >= x)
+    {
+        newNode->next = *first;
+        *first = newNode;
+    }
+    else
+    {
+        while (p != NULL && p->data < x)
+        {
+            q = p;
+            p = p->next;
+        }
+
+        newNode->next = p;
+        q->next = newNode;
+    }
+}
+
 int main()
 {
-    int arr[] = {3, 5, 7, 10, 15, 8, 12, 20};
-    create(arr, 8);
+    //int arr[] = {3, 5, 7, 10, 15, 8, 12, 20};
+    //create(arr, 8);
     
-    struct Node* temp = linearSearchMoveToHead(&first, 56);
+    insertLast(&first, 1);
+    insertLast(&first, 7);
+    insertLast(&first, 22);
+    insertLast(&first, 30);
+    insertLast(&first, 99);
 
-    if(temp) printf("VALUE %d FOUND\n", temp->data);
-    else printf("VALUE NOT FOUND\n");
-
+    insertSorted(&first, 0);
+    insertSorted(&first, 10);
+    
     display(first);
 
     freeList(first);

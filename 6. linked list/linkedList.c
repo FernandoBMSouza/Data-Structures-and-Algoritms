@@ -257,6 +257,113 @@ void insertSorted(struct Node** first, int x)
     }
 }
 
+void deleteNode(struct Node** first, int index)
+{
+    if (index < 0 || *first == NULL || index >= countNodes(*first)) return;
+    struct Node* p = *first;
+
+    if(index == 0)
+    {
+        *first = (*first)->next;
+        free(p);
+    }
+    else
+    {
+        struct Node* q = NULL;
+        for(int i = 0; i < index; i++)
+        { 
+            q = p;
+            p = p->next;
+        }
+
+        q->next = p->next;
+        free(p);
+    }
+}
+
+int sorted(struct Node* p)
+{
+    int value = p->data;
+    while(p)
+    {
+        if(p->data < value) return 0;
+
+        value = p->data;
+        p = p->next;
+    }
+    return 1;    
+}
+
+void removeDuplicates(struct Node** first)
+{
+    if(!sorted(*first)) return;
+
+    struct Node* p = *first;
+    struct Node* q = p->next;
+
+    while (q)
+    {
+        if(p->data != q->data)
+        {
+            p = q;
+            q = q->next;
+        }
+        else
+        {
+            p->next = q->next;
+            free(q);
+            q = p->next;
+        }
+    }
+    
+}
+
+void reverseElements(struct Node** first)
+{
+    struct Node* p = *first;
+    int* auxArray = (int*)malloc(sizeof(int) * countNodes(p));
+    int i = 0;
+    while (p)
+    {
+        auxArray[i++] = p->data;
+        p = p->next;
+    }
+    p = *first;
+    i--;
+    while (p)
+    {
+        p->data = auxArray[i--];
+        p = p->next;
+    }
+    free(auxArray);
+}
+
+void reverseLinks(struct Node** first)
+{
+    struct Node* p = *first;
+    struct Node* q = NULL;
+    struct Node* r = NULL;
+
+    while (p)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    *first = q;    
+}
+
+void reverseRecursive(struct Node* q, struct Node* p)
+{
+    if(p)
+    {
+        reverseRecursive(p, p->next);
+        p->next = q;
+    }
+    else first = q;
+}
+
 int main()
 {
     //int arr[] = {3, 5, 7, 10, 15, 8, 12, 20};
@@ -264,13 +371,11 @@ int main()
     
     insertLast(&first, 1);
     insertLast(&first, 7);
+    insertLast(&first, 10);
     insertLast(&first, 22);
-    insertLast(&first, 30);
-    insertLast(&first, 99);
+    insertLast(&first, 40);
 
-    insertSorted(&first, 0);
-    insertSorted(&first, 10);
-    
+    reverseRecursive(NULL, first);
     display(first);
 
     freeList(first);

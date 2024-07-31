@@ -6,7 +6,7 @@ struct Node
 {
     int data;
     struct Node* next;
-} *first = NULL;
+} *first = NULL, *second = NULL, *third = NULL;
 
 void create(int* arr, int n)
 {
@@ -18,6 +18,27 @@ void create(int* arr, int n)
     first->data = arr[0];
     first->next = NULL;
     last = first;
+
+    for(int i = 1; i < n; i++)
+    {
+        t = (struct Node*)malloc(sizeof(struct Node));
+        t->data = arr[i];
+        t->next = NULL;
+        last->next = t;
+        last = t;
+    }
+}
+
+void create2(int* arr, int n)
+{
+    int i;
+    struct Node* t;
+    struct Node* last;
+
+    second = (struct Node*)malloc(sizeof(struct Node));
+    second->data = arr[0];
+    second->next = NULL;
+    last = second;
 
     for(int i = 1; i < n; i++)
     {
@@ -364,20 +385,85 @@ void reverseRecursive(struct Node* q, struct Node* p)
     else first = q;
 }
 
+void concat(struct Node* p, struct Node* q)
+{
+    third = p;
+    while (p->next != NULL)
+    {
+        p = p->next;
+    }
+    p->next = q;   
+}
+
+void merge(struct Node* p, struct Node* q)
+{
+    struct Node* last = third;
+
+    if(p->data < q->data)
+    {
+        third = last = p;
+        p = p->next;
+        last->next = NULL;
+    }
+    else
+    {
+        third = last = q;
+        q = q->next;
+        last->next = NULL;
+    }
+
+    while (p && q)
+    {
+        if(p->data < q->data)
+        {
+            last->next = p;
+            last = p;
+            p = p->next;
+            last->next = NULL;
+        }
+        else
+        {
+            last->next = q;
+            last = q;
+            q = q->next;
+            last->next = NULL;
+        }
+    }
+
+    if(p) last->next = p;
+    if(q) last->next = q;
+}
+
+int isLoop(struct Node* f)
+{
+    struct Node* p = f;
+    struct Node* q = f;
+
+    do
+    {
+        p = p->next;
+        q = q->next;
+        q = q ? q->next : q;
+    } while (p && q && p != q);
+    if(p==q) return 1;
+    else return 0;
+}
+
 int main()
 {
-    //int arr[] = {3, 5, 7, 10, 15, 8, 12, 20};
-    //create(arr, 8);
-    
-    insertLast(&first, 1);
-    insertLast(&first, 7);
-    insertLast(&first, 10);
-    insertLast(&first, 22);
-    insertLast(&first, 40);
+    struct Node *t1, *t2;
 
-    reverseRecursive(NULL, first);
-    display(first);
+    int A[] = {10,20,30,40,50};
+    create(A, 5);
 
-    freeList(first);
+    t1 = first->next->next;
+    t2 = first->next->next->next->next;
+    t2->next = t1;
+
+    printf("%d\n", isLoop(first));
+
+    // freeList(third); 
+    // freeList(first);
+    // freeList(second);
     return 0;
 }

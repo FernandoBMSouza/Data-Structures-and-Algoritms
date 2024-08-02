@@ -25,6 +25,10 @@ public:
     void insert(int index, const T& data);
     void remove(int index);
     int length() const;
+
+    T sum();
+    T maxValue();
+    T minValue();
 };
 
 template <typename T>
@@ -129,6 +133,52 @@ int LinkedList<T>::length() const
         current = current->next;
     }
     return count;
+}
+
+template <typename T>
+T LinkedList<T>::maxValue()
+{
+    Node* current = first;
+    T max = current->data;
+
+    while (current)
+    {
+        if(current->data > max)
+            max = current->data;
+
+        current = current->next;
+    }
+    return max;
+}
+
+template <typename T>
+T LinkedList<T>::minValue()
+{
+    Node* current = first;
+    T min = current->data;
+
+    while (current)
+    {
+        if(current->data < min)
+            min = current->data;
+
+        current = current->next;
+    }
+    return min;
+}
+
+template <typename T>
+T LinkedList<T>::sum()
+{
+    T total = T();
+    Node* current = first;
+
+    while (current)
+    {
+        total += current->data;
+        current = current->next;
+    }
+    return total;
 }
 
 #endif

@@ -2,6 +2,8 @@
 #define LINKED_LIST_H
 
 #include <iostream>
+#include <cmath>
+#include <stack>
 
 template <typename T>
 class LinkedList
@@ -24,6 +26,9 @@ public:
     void display() const;
     void insert(int index, const T& data);
     void remove(int index);
+    void middleNode1() const;
+    void middleNode2() const;
+    void middleNode3() const;
     int length() const;
 
     T sum();
@@ -179,6 +184,63 @@ T LinkedList<T>::sum()
         current = current->next;
     }
     return total;
+}
+
+template<typename T>
+void LinkedList<T>::middleNode1() const
+{
+    int middleNodeIndex = (int)ceil(length() / 2.0f) - 1;
+
+    Node* current = first;
+    for(int i = 0; i < middleNodeIndex; i++)
+        current = current->next;
+
+    T middleNodeValue = current->data;
+
+    std::cout << "Middle Node Index: " << middleNodeIndex << '\n';
+    std::cout << "Middle Node Value: " << middleNodeValue << '\n';
+}
+
+template<typename T>
+void LinkedList<T>::middleNode2() const
+{
+    Node* p = first;
+    Node* q = first;
+
+    int index = 0;
+
+    while (q)
+    {
+        q = q->next;
+        if(q) q = q->next;
+        if(q) 
+        {
+            p = p->next;
+            index++;
+        }
+    }
+    std::cout << "Middle Node Index: " << index << '\n';
+    std::cout << "Middle Node Value: " << p->data << '\n';
+}
+
+template<typename T>
+void LinkedList<T>::middleNode3() const
+{
+    std::stack<Node*> pilha;
+    Node* current = first;
+    while (current)
+    {
+        pilha.push(current);
+        current = current->next;
+    }
+    
+    int popLength = (int)floor(pilha.size() / 2.0f);
+    while (popLength)
+    {
+        pilha.pop();
+        popLength--;
+    }
+    std::cout << "Middle Node Value: " << pilha.top()->data << '\n';
 }
 
 #endif

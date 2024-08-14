@@ -11,6 +11,7 @@ public:
 	~ArrayStack();
 
 	void push(T value);
+	void display();
 	T pop();
 	T peek(int index);
 	T stackTop();
@@ -53,6 +54,21 @@ void ArrayStack<T>::push(T value)
 		stack->elements[++stack->top] = value;
 	else
 		std::cout << "stack overflow\n";
+}
+
+template <typename T>
+void ArrayStack<T>::display()
+{
+	if (isEmpty())
+	{
+		std::cout << "stack is empty\n";
+		return;
+	}
+
+	for (int i = 0; i <= stack->top; i++)
+		std::cout << stack->elements[stack->top - i] << ' ';
+
+	std::cout << '\n';
 }
 
 template <typename T>

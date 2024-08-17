@@ -1,57 +1,16 @@
-#include "ArrayStack.h"
-#include <cstring>
+#include "Postfix.h"
 #include <iostream>
-
-bool isBalanced(const char* expression);
-bool isBalancedMoreSymbols(const char* expression);
 
 int main()
 {
-    const char* test = "{([a + b] * [c - d])/e}";
-    std::cout << isBalancedMoreSymbols(test) << '\n';
-}
+    const char* infix = "a+b*c-d/e";
+    char* postfix = Postfix::convert(infix);
 
-bool isBalanced(const char* expression)
-{
-    ArrayStack<char> stack(std::strlen(expression));
-    for (int i = 0; expression[i] != '\0'; i++)
-    {
-        if (expression[i] == '(')
-        {
-            stack.push(expression[i]);
-        }
-        else if (expression[i] == ')')
-        {
-            if (stack.isEmpty()) return false;
-            stack.pop();
-        }
-    }
-    return stack.isEmpty();
-}
+    std::cout << "Infix: " << infix << '\n';
+    std::cout << "Postfix: " << postfix << '\n';
 
-bool isBalancedMoreSymbols(const char* expression)
-{
-    ArrayStack<char> stack(std::strlen(expression));
-    for (int i = 0; expression[i] != '\0'; i++)
-    {
-        if (expression[i] == '(' || expression[i] == '{' || expression[i] == '[')
-        {
-            stack.push(expression[i]);
-        }
-        else if (expression[i] == ')' || expression[i] == '}' || expression[i] == ']')
-        {
-            if (stack.isEmpty()) return false;
+    // Depois de terminar de usar o array postfix, libere a memória
+    delete[] postfix;
 
-            char topChar = stack.pop();
-
-            // Verifica se o símbolo do topo da pilha corresponde ao símbolo atual
-            if (!((topChar == '(' && expression[i] == ')') ||
-                  (topChar == '{' && expression[i] == '}') ||
-                  (topChar == '[' && expression[i] == ']')))
-            {
-                return false;
-            }
-        }
-    }
-    return stack.isEmpty();
+    return 0;
 }

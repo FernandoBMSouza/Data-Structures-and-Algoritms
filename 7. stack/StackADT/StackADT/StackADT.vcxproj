@@ -127,11 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Balanced.cpp" />
+    <ClCompile Include="Postfix.cpp" />
     <ClCompile Include="StackADT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayStack.h" />
+    <ClInclude Include="Balanced.h" />
     <ClInclude Include="LinkedListStack.h" />
+    <ClInclude Include="Postfix.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

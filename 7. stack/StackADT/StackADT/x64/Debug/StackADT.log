@@ -1,4 +1,2 @@
 ﻿  StackADT.cpp
-C:\Users\ferna\OneDrive\Documents\Projetos\Data-Structures-and-Algoritms\7. stack\StackADT\StackADT\StackADT.cpp(16,39): warning C4267: 'argumento': conversão de 'size_t' para 'int', possível perda de dados
-C:\Users\ferna\OneDrive\Documents\Projetos\Data-Structures-and-Algoritms\7. stack\StackADT\StackADT\StackADT.cpp(52,39): warning C4267: 'argumento': conversão de 'size_t' para 'int', possível perda de dados
   StackADT.vcxproj -> C:\Users\ferna\OneDrive\Documents\Projetos\Data-Structures-and-Algoritms\7. stack\StackADT\x64\Debug\StackADT.exe

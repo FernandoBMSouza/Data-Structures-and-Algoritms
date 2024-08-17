@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D1666A51-E813-44F0-8B6E-CA5C418A75E8}|StackADT\\StackADT.vcxproj|C:\\Users\\ferna\\OneDrive\\Documents\\Projetos\\Data-Structures-and-Algoritms\\7. stack\\StackADT\\StackADT\\StackADT.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D1666A51-E813-44F0-8B6E-CA5C418A75E8}|StackADT\\StackADT.vcxproj|solutionrelative:StackADT\\StackADT.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D1666A51-E813-44F0-8B6E-CA5C418A75E8}|StackADT\\StackADT.vcxproj|C:\\Users\\ferna\\OneDrive\\Documents\\Projetos\\Data-Structures-and-Algoritms\\7. stack\\StackADT\\StackADT\\ArrayStack.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D1666A51-E813-44F0-8B6E-CA5C418A75E8}|StackADT\\StackADT.vcxproj|solutionrelative:StackADT\\ArrayStack.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,21 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ArrayStack.h",
-              "DocumentMoniker": "C:\\Users\\ferna\\OneDrive\\Documents\\Projetos\\Data-Structures-and-Algoritms\\7. stack\\StackADT\\StackADT\\ArrayStack.h",
-              "RelativeDocumentMoniker": "StackADT\\ArrayStack.h",
-              "ToolTip": "C:\\Users\\ferna\\OneDrive\\Documents\\Projetos\\Data-Structures-and-Algoritms\\7. stack\\StackADT\\StackADT\\ArrayStack.h",
-              "RelativeToolTip": "StackADT\\ArrayStack.h",
-              "ViewState": "AQIAAFcAAAAAAAAAAAAAACQAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-08-12T13:34:16.058Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -41,9 +24,9 @@
               "RelativeDocumentMoniker": "StackADT\\StackADT.cpp",
               "ToolTip": "C:\\Users\\ferna\\OneDrive\\Documents\\Projetos\\Data-Structures-and-Algoritms\\7. stack\\StackADT\\StackADT\\StackADT.cpp",
               "RelativeToolTip": "StackADT\\StackADT.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAKAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-08-12T13:27:11.45Z",
+              "WhenOpened": "2024-08-17T14:40:55.341Z",
               "EditorCaption": ""
             }
           ]

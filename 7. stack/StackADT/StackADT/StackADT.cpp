@@ -3,13 +3,13 @@
 
 int main()
 {
-    const char* infix = "a+b*c-d/e";
+    const char* infix = "3*5+6/2-4";
     char* postfix = Postfix::convert(infix);
 
     std::cout << "Infix: " << infix << '\n';
     std::cout << "Postfix: " << postfix << '\n';
+    std::cout << "Evaluation: " << Postfix::evaluate(postfix) << '\n';
 
-    // Depois de terminar de usar o array postfix, libere a memória
     delete[] postfix;
 
     return 0;

@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="QueueADT.cpp" />
     <ClCompile Include="QueueArray.cpp" />
+    <ClCompile Include="QueueLinkedList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QueueArray.h" />
+    <ClInclude Include="QueueLinkedList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

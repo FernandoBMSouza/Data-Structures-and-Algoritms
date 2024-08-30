@@ -13,8 +13,5 @@ int main()
 
     queue.display();
 
-    queue.dequeue();
-    queue.display();
-    queue.enqueue(60);
-    queue.display();
+    std::cout << queue.isEmpty();
 }

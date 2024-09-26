@@ -33,6 +33,11 @@ public:
     void postOrder(Node<T>* p);
     void levelOrder(Node<T>* p);
     int getHeight(Node<T>* root);
+    int countNodes(Node<T>* p);
+    int countLeafNodes(Node<T>* p);
+    int countDegree1Nodes(Node<T>* p);
+    int countDegree2Nodes(Node<T>* p);
+    int countInternalNodes(Node<T>* p);
     Node<T>* getRoot();
 };
 
@@ -239,8 +244,7 @@ void Tree<T>::levelOrder(Node<T>* root)
             std::cout << root->rightChild->data << ' ';
             q.enqueue(root->rightChild);
         }
-    }
-    
+    }  
 }
 
 template<typename T>
@@ -256,6 +260,76 @@ int Tree<T>::getHeight(Node<T>* root)
 
     if(x>y) return x+1;
     else return y+1;
+}
+
+template<typename T>
+int Tree<T>::countNodes(Node<T>* p)
+{
+    int x, y;
+    if(p)
+    {
+        x = countNodes(p->leftChild);
+        y = countNodes(p->rightChild);
+        return x + y + 1;
+    }
+    return 0;
+}
+
+template<typename T>
+int Tree<T>::countDegree2Nodes(Node<T>* p)
+{
+    int x, y;
+    if(p)
+    {
+        x = countDegree2Nodes(p->leftChild);
+        y = countDegree2Nodes(p->rightChild);
+        if(p->leftChild && p->rightChild) return x+y+1;
+        else return x+y;
+    }
+    return 0;
+}
+
+template<typename T>
+int Tree<T>::countDegree1Nodes(Node<T>* p)
+{
+    int x, y;
+    if(p)
+    {
+        x = countDegree1Nodes(p->leftChild);
+        y = countDegree1Nodes(p->rightChild);
+        //if((p->leftChild && !p->rightChild) || (!p->leftChild && p->rightChild)) return x+y+1;
+        if(p->leftChild ^ p->rightChild) return x+y+1;
+        else return x+y;
+    }
+    return 0;
+}
+
+template<typename T>
+int Tree<T>::countInternalNodes(Node<T>* p)
+{
+    int x, y;
+    if(p)
+    {
+        x = countInternalNodes(p->leftChild);
+        y = countInternalNodes(p->rightChild);
+        if(p->leftChild || p->rightChild) return x+y+1;
+        else return x+y;
+    }
+    return 0;
+}
+
+template<typename T>
+int Tree<T>::countLeafNodes(Node<T>* p)
+{
+    int x, y;
+    if(p)
+    {
+        x = countLeafNodes(p->leftChild);
+        y = countLeafNodes(p->rightChild);
+        if(!p->leftChild && !p->rightChild) return x+y+1;
+        else return x+y;
+    }
+    return 0;
 }
 
 #endif

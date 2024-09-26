@@ -9,9 +9,11 @@ int main()
 
     std::cout << "HEIGHT: " << t.getHeight(t.getRoot()) << '\n';
 
-    std::cout << "POST-ORDER: ";
-    t.postOrderIterative(t.getRoot());
-    std::cout << '\n';
+    std::cout << "Nodes: "            << t.countNodes(t.getRoot()) << '\n';
+    std::cout << "Leaf Nodes: "       << t.countLeafNodes(t.getRoot()) << '\n';
+    std::cout << "Internal Nodes: "   << t.countInternalNodes(t.getRoot()) << '\n';
+    std::cout << "Degree Two Nodes: " << t.countDegree2Nodes(t.getRoot()) << '\n';
+    std::cout << "Degree One Nodes: " << t.countDegree2Nodes(t.getRoot()) << '\n';
 
     // std::cout << "\nPRE ORDER: ";
     // t.preOrder(t.getRoot());

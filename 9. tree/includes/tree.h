@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include <iostream>
+#include <stack>
 #include "queue.h"
 
 template <typename T>
@@ -24,6 +25,9 @@ public:
     ~Tree();
 
     void createTree();
+    void preOrderIterative(Node<T>* p);
+    void inOrderIterative(Node<T>* p);
+    void postOrderIterative(Node<T>* p);
     void preOrder(Node<T>* p);
     void inOrder(Node<T>* p);
     void postOrder(Node<T>* p);
@@ -133,6 +137,84 @@ void Tree<T>::postOrder(Node<T>* p)
         postOrder(p->leftChild);
         postOrder(p->rightChild);
         std::cout << p->data << ' ';
+    }
+}
+
+template<typename T>
+void Tree<T>::preOrderIterative(Node<T>* p)
+{
+    std::stack<Node<T>*> stack;
+    while (p != nullptr || !stack.empty())
+    {
+        if(p != nullptr)
+        {
+            std::cout << p->data << ' ';
+            stack.push(p);
+            p = p->leftChild;
+        }
+        else
+        {
+            p = stack.top();
+            stack.pop();
+            p = p->rightChild;
+        }
+    }
+}
+
+template<typename T>
+void Tree<T>::inOrderIterative(Node<T>* p)
+{
+    std::stack<Node<T>*> stack;
+    while (p != nullptr || !stack.empty())
+    {
+        if(p != nullptr)
+        {
+            stack.push(p);
+            p = p->leftChild;
+        }
+        else
+        {
+            p = stack.top();
+            stack.pop();
+            std::cout << p->data << ' ';
+            p = p->rightChild;
+        }
+    }
+}
+
+template<typename T>
+void Tree<T>::postOrderIterative(Node<T>* p)
+{
+    std::stack<Node<T>*> stack;
+    Node<T>* lastVisitedNode = nullptr;
+
+    while (p != nullptr || !stack.empty())
+    {
+        if (p != nullptr)
+        {
+            // Empilha todos os filhos à esquerda
+            stack.push(p);
+            p = p->leftChild;
+        }
+        else
+        {
+            // Pega o nó do topo da pilha
+            Node<T>* topNode = stack.top();
+
+            // Se o filho à direita é nulo ou já foi visitado, processa o nó
+            if (topNode->rightChild == nullptr || topNode->rightChild == lastVisitedNode)
+            {
+                std::cout << topNode->data << ' ';
+                stack.pop();
+                lastVisitedNode = topNode;
+                p = nullptr; // Garante que vai para o próximo nó na pilha
+            }
+            else
+            {
+                // Se o nó à direita não foi visitado, explora o lado direito
+                p = topNode->rightChild;
+            }
+        }
     }
 }
 

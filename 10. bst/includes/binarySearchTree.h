@@ -8,7 +8,6 @@ struct Node
     Node* rchild;
 };
 
-
 class binarySearchTree
 {
 private:

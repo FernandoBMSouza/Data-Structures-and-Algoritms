@@ -149,3 +149,83 @@ Node* avlTree::rotationRL(Node* p)
 
     return pRightLeft;
 }
+
+void avlTree::inOrder(Node *p) 
+{
+    if (p)
+    {
+        inOrder(p->lChild);
+        std::cout << p->data << ", " << std::flush;
+        inOrder(p->rChild);
+    }
+}
+
+void avlTree::inOrder()
+{
+    return inOrder(root);
+}
+ 
+Node* avlTree::getPredecessor(Node *p) 
+{
+    while (p && p->rChild != nullptr)
+        p = p->rChild;
+
+    return p;
+}
+ 
+Node* avlTree::getSuccessor(Node *p) 
+{
+    while (p && p->lChild != nullptr)
+        p = p->lChild;
+
+    return p;
+}
+
+Node* avlTree::deleteNode(Node* p, int key)
+{
+    if (!p) return nullptr;
+
+    if (!p->lChild && !p->rChild)
+    {
+        if (p == root)
+            root = nullptr;
+
+        delete p;
+        return nullptr;
+    }
+
+    if (key < p->data)
+        p->lChild = deleteNode(p->lChild, key);
+    else if(key > p->data)
+        p->rChild = deleteNode(p->rChild, key);
+    else
+    {
+        Node* q;
+
+        if (nodeHeight(p->lChild) > nodeHeight(p->rChild))
+        {
+            q = getPredecessor(p->lChild);
+            p->data = q->data;
+            p->lChild = deleteNode(p->lChild, q->data);
+        } 
+        else 
+        {
+            q = getSuccessor(p->rChild);
+            p->data = q->data;
+            p->rChild = deleteNode(p->rChild, q->data);
+        }
+    }
+
+    // Update height
+    p->height = nodeHeight(p);
+ 
+    // Balance Factor and Rotation
+    if      (balanceFactor(p) ==  2 && balanceFactor(p->lChild) ==  1)  return rotationLL(p); // L1 Rotation
+    else if (balanceFactor(p) ==  2 && balanceFactor(p->lChild) == -1)  return rotationLR(p); // L-1 Rotation
+    else if (balanceFactor(p) == -2 && balanceFactor(p->rChild) == -1)  return rotationRR(p); // R-1 Rotation
+    else if (balanceFactor(p) == -2 && balanceFactor(p->rChild) ==  1)  return rotationRL(p); // R1 Rotation
+    else if (balanceFactor(p) ==  2 && balanceFactor(p->lChild) ==  0)  return rotationLL(p); // L0 Rotation
+    else if (balanceFactor(p) == -2 && balanceFactor(p->rChild) ==  0)  return rotationRR(p); // R0 Rotation
+ 
+    return p;
+}

@@ -50,9 +50,9 @@ Node* avlTree::rInsert(Node* p, int key)
         return rotationLL(p);
     else if(balanceFactor(p) == 2 && balanceFactor(p->lChild) == -1) 
         return rotationLR(p);
-    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == -1) 
+    else if(balanceFactor(p) == -2 && balanceFactor(p->rChild) == -1) 
         return rotationRR(p);
-    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == 1) 
+    else if(balanceFactor(p) == -2 && balanceFactor(p->rChild) == 1) 
         return rotationRL(p);
 
     return p;    
@@ -95,15 +95,57 @@ Node* avlTree::rotationLL(Node* p)
 
 Node* avlTree::rotationRR(Node* p)
 {
-    return nullptr;
+    Node* pRight = p->rChild;
+    Node* pRightLeft = pRight->lChild;
+
+    pRight->lChild = p;
+    p->rChild = pRightLeft;
+
+    p->height = nodeHeight(p);
+    pRight->height = nodeHeight(pRight);
+
+    if(root == p)
+        root = pRight;
+
+    return pRight;
 }
 
 Node* avlTree::rotationLR(Node* p)
 {
-    return nullptr;
+    Node* pLeft = p->lChild;
+    Node* pLeftRight = pLeft->rChild;
+
+    pLeft->rChild = pLeftRight->lChild;
+    p->lChild = pLeftRight->rChild;
+
+    pLeftRight->lChild = pLeft;
+    pLeftRight->rChild = p;
+
+    pLeft->height = nodeHeight(pLeft);
+    p->height = nodeHeight(p);
+    pLeftRight->height = nodeHeight(pLeftRight);
+
+    if(root == p) root = pLeftRight;
+
+    return pLeftRight;
 }
 
 Node* avlTree::rotationRL(Node* p)
 {
-    return nullptr;
+    Node* pRight = p->rChild;
+    Node* pRightLeft = pRight->lChild;
+
+    pRight->lChild = pRightLeft->rChild;
+    p->rChild = pRightLeft->lChild;
+
+    pRightLeft->lChild = p;
+    pRightLeft->rChild = pRight;
+
+    pRight->height = nodeHeight(pRight);
+    p->height = nodeHeight(p);
+    pRightLeft->height = nodeHeight(pRightLeft);
+
+    if(root == p) root = pRightLeft;
+
+    return pRightLeft;
 }

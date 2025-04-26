@@ -1,6 +1,8 @@
 #include <iostream>
 
-//tail recursion example
+// Recursion
+// time: O(n)
+// space: O(n), são n activation recalls da stack
 
 int fun1(int n)
 {
@@ -11,12 +13,16 @@ int fun1(int n)
     }
 }
 
+// Loop iterations
+// time: O(n)
+// space: O(1)
+
 int fun2(int n)
 {
-    if(n > 0)
+    while(n > 0)
     {
-        fun2(n-1);
         printf("%d", n);
+        n--;
     }
 }
 
